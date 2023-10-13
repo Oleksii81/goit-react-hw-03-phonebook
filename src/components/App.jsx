@@ -20,6 +20,20 @@ export class App extends Component {
     filter: ''
   };
 
+  componentDidMount(){
+    const savedContact = localStorage.getItem('contacts');
+    const parsedContact = JSON.parse(savedContact);
+    if (savedContact) {
+      this.setState({contacts: parsedContact})
+    };
+  };
+  
+  
+  componentDidUpdate(prevState){
+    if(this.state.contacts !== prevState.contacts){
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    };
+  };
 
   onFormSubmitData = ({ name, number }) => {
     if (
